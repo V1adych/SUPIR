@@ -77,7 +77,8 @@ os.makedirs(args.save_dir, exist_ok=True)
 for img_pth in os.listdir(args.img_dir):
     img_name = os.path.splitext(img_pth)[0]
 
-    LQ_ips = Image.open(os.path.join(args.img_dir, img_pth))
+    LQ_ips = Image.open(os.path.join(args.img_dir, img_pth)).convert("RGB")
+    print(LQ_ips.size)
     LQ_img, h0, w0 = PIL2Tensor(LQ_ips, upsacle=args.upscale, min_size=args.min_size)
     LQ_img = LQ_img.unsqueeze(0).to(SUPIR_device)[:, :3, :, :]
 
